@@ -1,0 +1,55 @@
+
+import random
+questions = {
+    "What is the keyword to define a function in Python?": "def",
+    "Which data type is used to store True or False values?": "boolean",
+    "What is the correct file extension for Python files?": ".py",
+    "Which symbol is used to comment in Python?": "#",
+    "What function is used to get input from the user?": "input",
+    "How do you start a for loop in Python?": "for",
+    "What is the output of 2 ** 3 in Python?": "8",
+    "What keyword is used to import a module in Python?": "import",
+    "What does the len() function return?": "length",
+    "What is the result of 10 // 3 in Python?": "3"
+}
+
+def welcome_user():
+    print("*****Welcome to this quiz game*****")
+
+def print_questions():
+    score = 0
+    while True:
+        start_key = input("Press k to start: ")
+        key = start_key.lower()
+        if key == "k":
+            current_questions = questions.copy()
+            for _ in range(len(questions)):
+                if not current_questions:
+                    print("Game Over!")
+                    break
+                pick_question = random.choice(list(current_questions.keys()))
+                question = pick_question
+                quest_value = current_questions[pick_question]
+                result = user_answer(question, quest_value)
+                if result:
+                    score += 1
+                del current_questions[question]
+            return score
+        else:
+            print("Incorrect key!")
+
+def user_answer(question, quest_value):
+    answer = input(question + ": ")
+    if answer == quest_value:
+        print("correct")
+        return True
+    else:
+        print("incorrect")
+        return False
+
+def main():    
+    welcome_user()
+    result = print_questions()
+    print(f"Your score is: {result}")
+
+main()
