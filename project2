@@ -1,0 +1,44 @@
+import random
+import string
+
+def generate_password():
+    while True:
+        length = int(input("whats the length of your password: "))
+        if length < 4:
+            print("the length must be at least 4.")
+        else:
+            break
+    input_uppercase = input("do you want uppercase characters(yes/no): ")
+    input_lowercase = input("do you want lowercase characters(yes/no): ")
+    input_special = input("do you want special characters(yes/no): ")
+    input_digits = input("do you want digits(yes/no): ")
+
+    lower = string.ascii_lowercase if input_lowercase == "yes" else ""
+    upper = string.ascii_uppercase if input_uppercase == "yes" else ""  
+    special = string.punctuation if input_special == "yes" else "" 
+    digits = string.digits if input_digits == "yes" else "" 
+
+    all_characters = lower + upper + special + digits
+    required_characters = []
+    if input_lowercase == "yes":
+        required_characters.append(random.choice(lower))
+    if input_uppercase == "yes":
+        required_characters.append(random.choice(upper))
+    if input_special == "yes":
+        required_characters.append(random.choice(special))
+    if input_digits == "yes":
+        required_characters.append(random.choice(digits))
+    
+    remaining_length = length - len(required_characters)
+    password = required_characters
+
+    remaining_chars = []
+    for _ in range(remaining_length):
+        remaining_chars.append(random.choice(all_characters))
+    password = required_characters + remaining_chars
+    random.shuffle(password)
+    str_password = "".join(password)
+    return str_password
+
+password = generate_password()
+print(password)
